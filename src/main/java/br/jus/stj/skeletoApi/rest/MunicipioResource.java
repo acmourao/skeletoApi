@@ -34,12 +34,12 @@ public class MunicipioResource {
     }
 
     @GetMapping
-    public ResponseEntity<List<Municipio>> getAllMunicipios() {
+    public ResponseEntity<List<MunicipioDTO>> getAllMunicipios() {
         return ResponseEntity.ok(municipioService.findAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Municipio> getMunicipio(@PathVariable(name = "id") final Integer id) {
+    public ResponseEntity<MunicipioDTO> getMunicipio(@PathVariable(name = "id") final Integer id) {
         return ResponseEntity.ok(municipioService.get(id));
     }
 

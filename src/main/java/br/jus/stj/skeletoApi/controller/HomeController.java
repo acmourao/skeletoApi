@@ -11,7 +11,7 @@ public class HomeController {
     @GetMapping("/")
     @ResponseBody
     public String index() {
-        return "Hello World!";
+        return "<a href='http://localhost:8080/swagger-ui/index.html'>swagger available here.</a>";
     }
 
 }

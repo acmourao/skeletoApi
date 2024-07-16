@@ -1,5 +1,6 @@
 package br.jus.stj.skeletoApi.rest;
 
+import br.jus.stj.skeletoApi.domain.Usuario;
 import br.jus.stj.skeletoApi.model.UsuarioDTO;
 import br.jus.stj.skeletoApi.service.UsuarioService;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;

@@ -10,11 +10,9 @@ import br.jus.stj.skeletoApi.repos.EstadoRepository;
 import br.jus.stj.skeletoApi.repos.MunicipioRepository;
 import br.jus.stj.skeletoApi.repos.UsuarioRepository;
 import br.jus.stj.skeletoApi.util.NotFoundException;
-import br.jus.stj.skeletoApi.util.ReferencedWarning;
-
 import java.util.List;
 
-import org.springframework.data.domain.Sort;
+import br.jus.stj.skeletoApi.util.ReferencedWarning;
 import org.springframework.stereotype.Service;
 
 
@@ -35,9 +33,9 @@ public class MunicipioService {
         this.usuarioRepository = usuarioRepository;
     }
 
-    public List<Municipio> findAll() {
-        return municipioRepository.findAll(Sort.by("municipio"))
-                .stream().limit(20)
+    public List<MunicipioDTO> findAll() {
+        return municipioRepository.findByOrderByMunicipioAsc().stream()
+                .map(municipio -> mapToDTO(municipio, new MunicipioDTO()))
                 .toList();
     }
 
@@ -48,8 +46,9 @@ public class MunicipioService {
                 .toList();
     }
 
-    public Municipio get(final Integer id) {
+    public MunicipioDTO get(final Integer id) {
         return municipioRepository.findById(id)
+                .map(municipio -> mapToDTO(municipio, new MunicipioDTO()))
                 .orElseThrow(NotFoundException::new);
     }
 
@@ -80,6 +79,13 @@ public class MunicipioService {
 
     public boolean municipioExists(final String municipio) {
         return municipioRepository.existsByMunicipioIgnoreCase(municipio);
+    }
+
+    private MunicipioDTO mapToDTO(Municipio municipio, MunicipioDTO municipioDTO) {
+        municipioDTO.setId(municipio.getId());
+        municipioDTO.setMunicipio(municipio.getMunicipio());
+        municipioDTO.setUf(municipio.getUf().getUf());
+        return municipioDTO;
     }
 
     public ReferencedWarning getReferencedWarning(final Integer id) {

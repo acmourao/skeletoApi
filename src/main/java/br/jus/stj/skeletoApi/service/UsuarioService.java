@@ -11,6 +11,7 @@ import br.jus.stj.skeletoApi.util.NotFoundException;
 
 import java.util.List;
 
+import org.springframework.data.domain.Limit;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +31,7 @@ public class UsuarioService {
     }
 
     public List<UsuarioDTO> findAll() {
-        return usuarioRepository.findAll(Sort.by("nome")).stream().limit(20)
+        return usuarioRepository.findByOrderByNomeAsc().stream()
                 .map(usuario -> mapToDTO(usuario, new UsuarioDTO()))
                 .toList();
     }
